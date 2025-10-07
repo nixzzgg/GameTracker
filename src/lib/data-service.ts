@@ -1,5 +1,5 @@
 
-// Este archivo ahora redirige a supabase-data-service.ts
+// Este archivo ahora redirige a sqlite-data-service.ts
 // Mantenemos la misma interfaz para compatibilidad
 
 export {
@@ -11,4 +11,4 @@ export {
   getAllUsersWithGameLists,
   loadUserData,
   saveUserData
-} from './supabase-data-service';
+} from './sqlite-data-service';
