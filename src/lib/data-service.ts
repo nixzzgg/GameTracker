@@ -8,7 +8,6 @@ import path from 'path';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 
-// The user in the DB will have a password hash
 interface UserInDb extends User {
   passwordHash: string;
 }
@@ -26,13 +25,11 @@ async function readDb(): Promise<Database> {
   try {
     const data = await fs.readFile(dbPath, 'utf-8');
     const db = JSON.parse(data);
-    // Ensure the structure is correct
     if (!db.users) db.users = [];
     if (!db.gameLists) db.gameLists = {};
     return db;
   } catch (error: any) {
     if (error.code === 'ENOENT' || error instanceof SyntaxError) {
-      // File doesn't exist or is empty/corrupt, create it with a default structure
       const defaultDb: Database = { users: [], gameLists: {} };
       await writeDb(defaultDb);
       return defaultDb;
@@ -51,7 +48,6 @@ async function writeDb(data: Database): Promise<void> {
   }
 }
 
-// User Functions
 export async function findUserByUsername(username: string): Promise<UserInDb | undefined> {
   const db = await readDb();
   return db.users.find((user) => user.username.toLowerCase() === username.toLowerCase());
@@ -114,7 +110,6 @@ export async function updateUser(userId: string, data: Partial<User & { newPassw
 
   const currentUser = db.users[userIndex];
 
-  // Update fields
   if (data.username) {
       const existing = await findUserByUsername(data.username);
       if (existing && existing.id !== userId) {
@@ -150,7 +145,6 @@ export async function getAllUsersWithGameLists(): Promise<{ user: User; lists: G
     });
 }
 
-// Game Data Functions
 export async function loadUserData(userId: string): Promise<GameState> {
   const db = await readDb();
   return db.gameLists[userId] || { playing: [], completed: [], dropped: [], wishlist: [], recommendations: [] };
