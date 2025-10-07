@@ -1,0 +1,9 @@
+'use server';
+import '@/ai/flows/personalized-game-recommendations.ts';
+import '@/ai/flows/adn-gamer.ts';
+import '@/ai/flows/dropped-games-analysis-flow.ts';
+import '@/ai/flows/playtime-prediction-flow.ts';
+import '@/ai/flows/dynamic-suggestion-flow.ts';
+import '@/ai/flows/difficulty-analysis-flow.ts';
+import '@/ai/flows/gamer-duel-flow.ts';
+import '@/ai/flows/panic-button-flow.ts';
